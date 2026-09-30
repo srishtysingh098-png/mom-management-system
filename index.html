@@ -89,16 +89,53 @@
 
         <section>
 
-            <h2>My Meetings</h2>
+    <h2>My Meetings</h2>
 
-            <div id="meetingList"></div>
+    <div id="meetingList"></div>
 
-        </section>
+</section>
 
-    </main>
+<section class="meeting-form">
 
+    <h2>➕ Add Action Item</h2>
 
-    <script src="script.js"></script>
+    <label>Select Meeting</label>
 
-</body>
-</html>
+    <select id="taskMeeting"></select>
+
+    <label>Task</label>
+
+    <input
+        type="text"
+        id="taskName"
+        placeholder="Example: Complete project report"
+    >
+
+    <label>Assigned To</label>
+
+    <input
+        type="text"
+        id="taskPerson"
+        placeholder="Example: Rahul"
+    >
+
+    <label>Deadline</label>
+
+    <input
+        type="date"
+        id="taskDeadline"
+    >
+
+    <button onclick="addTask()">
+        Add Task
+    </button>
+
+</section>
+
+<section>
+
+    <h2>📌 Action Items</h2>
+
+    <div id="taskList"></div>
+
+</section>
