@@ -134,4 +134,148 @@ function updateDashboard() {
         completedTasks;
 }
 
+function addTask() {
+
+    const meetingId =
+        Number(document.getElementById("taskMeeting").value);
+
+    const taskName =
+        document.getElementById("taskName").value;
+
+    const person =
+        document.getElementById("taskPerson").value;
+
+    const deadline =
+        document.getElementById("taskDeadline").value;
+
+    if (meetingId === 0 || taskName === "") {
+        alert("Please select a meeting and enter a task.");
+        return;
+    }
+
+    const meeting = meetings.find(
+        meeting => meeting.id === meetingId
+    );
+
+    if (!meeting) {
+        alert("Meeting not found.");
+        return;
+    }
+
+    const task = {
+        id: Date.now(),
+        name: taskName,
+        person: person,
+        deadline: deadline,
+        completed: false
+    };
+
+    meeting.tasks.push(task);
+
+    saveMeetings();
+
+    document.getElementById("taskName").value = "";
+    document.getElementById("taskPerson").value = "";
+    document.getElementById("taskDeadline").value = "";
+
+    displayMeetings();
+    displayTasks();
+}
+
+function displayTaskMeetings() {
+
+    const select =
+        document.getElementById("taskMeeting");
+
+    select.innerHTML =
+        '<option value="0">Select Meeting</option>';
+
+    meetings.forEach(meeting => {
+
+        select.innerHTML += `
+            <option value="${meeting.id}">
+                ${meeting.title}
+            </option>
+        `;
+    });
+}
+
+function displayTasks() {
+
+    const taskList =
+        document.getElementById("taskList");
+
+    taskList.innerHTML = "";
+
+    meetings.forEach(meeting => {
+
+        meeting.tasks.forEach(task => {
+
+            taskList.innerHTML += `
+
+                <div class="meeting">
+
+                    <h3>
+                        ${task.completed ? "✅" : "📌"}
+                        ${task.name}
+                    </h3>
+
+                    <p>
+                        <strong>Meeting:</strong>
+                        ${meeting.title}
+                    </p>
+
+                    <p>
+                        <strong>Assigned To:</strong>
+                        ${task.person || "Not assigned"}
+                    </p>
+
+                    <p>
+                        <strong>Deadline:</strong>
+                        ${task.deadline || "No deadline"}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        ${task.completed ? "Completed" : "Pending"}
+                    </p>
+
+                    <button
+                        onclick="toggleTask(${meeting.id}, ${task.id})">
+                        ${task.completed
+                            ? "Mark Pending"
+                            : "Mark Completed"}
+                    </button>
+
+                </div>
+            `;
+        });
+    });
+
+    displayTaskMeetings();
+    updateDashboard();
+}
+
+function toggleTask(meetingId, taskId) {
+
+    const meeting = meetings.find(
+        meeting => meeting.id === meetingId
+    );
+
+    if (!meeting) return;
+
+    const task = meeting.tasks.find(
+        task => task.id === taskId
+    );
+
+    if (!task) return;
+
+    task.completed = !task.completed;
+
+    saveMeetings();
+
+    displayTasks();
+}
+
 displayMeetings();
+displayTasks();
