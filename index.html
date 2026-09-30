@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MOM Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>📋 MOM Management System</h1>
+        <p>Manage meetings, notes, decisions and action items</p>
+    </header>
+
+    <main class="container">
+
+        <!-- Dashboard -->
+
+        <section class="dashboard">
+
+            <div class="card">
+                <h3>Total Meetings</h3>
+                <p id="totalMeetings">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Tasks</h3>
+                <p id="totalTasks">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Completed Tasks</h3>
+                <p id="completedTasks">0</p>
+            </div>
+
+        </section>
+
+
+        <!-- Create Meeting -->
+
+        <section class="meeting-form">
+
+            <h2>Create New Meeting</h2>
+
+            <label>Meeting Title</label>
+            <input
+                type="text"
+                id="meetingTitle"
+                placeholder="Enter meeting title"
+            >
+
+            <label>Date</label>
+            <input
+                type="date"
+                id="meetingDate"
+            >
+
+            <label>Participants</label>
+            <input
+                type="text"
+                id="participants"
+                placeholder="Example: Rahul, Priya, Aman"
+            >
+
+            <label>Agenda</label>
+            <textarea
+                id="agenda"
+                placeholder="Enter meeting agenda"
+            ></textarea>
+
+            <label>Meeting Notes</label>
+            <textarea
+                id="notes"
+                placeholder="Write important discussion points..."
+            ></textarea>
+
+            <button onclick="addMeeting()">
+                ➕ Add Meeting
+            </button>
+
+        </section>
+
+
+        <!-- Meetings -->
+
+        <section>
+
+            <h2>My Meetings</h2>
+
+            <div id="meetingList"></div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
