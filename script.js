@@ -279,3 +279,64 @@ function toggleTask(meetingId, taskId) {
 
 displayMeetings();
 displayTasks();
+function searchMeetings() {
+
+    const searchText =
+        document.getElementById("searchMeeting")
+        .value
+        .toLowerCase();
+
+    const meetingList =
+        document.getElementById("meetingList");
+
+    meetingList.innerHTML = "";
+
+    const filteredMeetings = meetings.filter(meeting => {
+
+        return (
+            meeting.title.toLowerCase().includes(searchText) ||
+            meeting.participants.toLowerCase().includes(searchText) ||
+            meeting.agenda.toLowerCase().includes(searchText) ||
+            meeting.notes.toLowerCase().includes(searchText)
+        );
+
+    });
+
+    filteredMeetings.forEach(meeting => {
+
+        meetingList.innerHTML += `
+
+            <div class="meeting">
+
+                <h3>📋 ${meeting.title}</h3>
+
+                <p>
+                    <strong>📅 Date:</strong>
+                    ${meeting.date}
+                </p>
+
+                <p>
+                    <strong>👥 Participants:</strong>
+                    ${meeting.participants || "Not provided"}
+                </p>
+
+                <p>
+                    <strong>📝 Agenda:</strong>
+                    ${meeting.agenda || "Not provided"}
+                </p>
+
+                <p>
+                    <strong>💬 Notes:</strong>
+                    ${meeting.notes || "Not provided"}
+                </p>
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteMeeting(${meeting.id})">
+                    🗑️ Delete Meeting
+                </button>
+
+            </div>
+        `;
+    });
+}
